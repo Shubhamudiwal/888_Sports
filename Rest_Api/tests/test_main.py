@@ -5,7 +5,6 @@ from sportsapp.models import Sport, Event, Selection
 from datetime import datetime
 import json
 
-
 class TestAPI(unittest.TestCase):
 
     def setUp(self):
