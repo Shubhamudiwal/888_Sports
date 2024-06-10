@@ -1,6 +1,5 @@
 from sqlalchemy import text
-# from database import db
-from app.database import db
+from sportsapp.database import db
 
 
 def create_sport(sport):
@@ -112,6 +111,34 @@ def search_events(filters):
     return events
 
 
+def search_selections(filters):
+    query = 'SELECT * FROM selections WHERE 1=1'
+    params = {}
+
+    if filters.name_regex:
+        query += " AND name REGEXP :name_regex"
+        params['name_regex'] = filters.name_regex
+
+    if filters.min_active_events:
+        query += """ AND (SELECT COUNT(*) FROM events e WHERE e.sport_id = selections.event_id AND e.active = TRUE) >= :min_active_events"""
+        params['min_active_events'] = filters.min_active_events
+
+    if filters.min_active_selections:
+        query += """ AND (SELECT COUNT(*) FROM selections s WHERE s.event_id = selections.event_id AND s.active = TRUE) >= :min_active_selections"""
+        params['min_active_selections'] = filters.min_active_selections
+
+    if filters.scheduled_start:
+        start, end = filters.scheduled_start
+        query += """ AND (SELECT scheduled_start FROM events e WHERE e.id = selections.event_id) BETWEEN :start AND :end"""
+        params['start'] = start
+        params['end'] = end
+
+    with db.engine.connect() as conn:
+        result = conn.execute(text(query), params)
+        selections = [dict(row._mapping) for row in result]
+    return selections
+
+
 def update_sport(sport_id, sport_data):
     set_clause = ', '.join([f"{k} = :{k}" for k in sport_data.keys()])
     sport_data['id'] = sport_id
@@ -133,45 +160,7 @@ def update_event(event_id, event_data):
         )
         conn.commit()
     # Check and update sport status if necessary
-    check_sport_status(event_data['sport_id'])
-
-
-# def update_selection(selection_id, selection_data):
-#     set_clause = ', '.join([f"{k} = :{k}" for k in selection_data.keys()])
-#     selection_data['id'] = selection_id
-#     with db.engine.connect() as conn:
-#         conn.execute(
-#             text(f'UPDATE selections SET {set_clause} WHERE id = :id'),
-#             selection_data
-#         )
-#         conn.commit()
-
-# def update_selection(selection_id, selection_data):
-#     set_clause = ', '.join([f"{k} = :{k}" for k in selection_data.keys()])
-#     selection_data['id'] = selection_id
-#     with db.engine.connect() as conn:
-#         conn.execute(
-#             text(f'UPDATE selections SET {set_clause} WHERE id = :id'),
-#             selection_data
-#         )
-#         conn.commit()
-#     # Check and update event and sport status
-#     event = get_event(selection_data['event_id'])
-#     if event:
-#         with db.engine.connect() as conn:
-#             active_selections = conn.execute(
-#                 text('SELECT COUNT(*) FROM selections WHERE event_id = :event_id AND active = 1'),
-#                 {"event_id": event['id']}).scalar()
-#         if active_selections == 0:
-#             update_event(event['id'], {"active": False})
-#             sport = get_sport(event['sport_id'])
-#             if sport:
-#                 with db.engine.connect() as conn:
-#                     active_events = conn.execute(
-#                         text('SELECT COUNT(*) FROM events WHERE sport_id = :sport_id AND active = 1'),
-#                         {"sport_id": sport['id']}).scalar()
-#                 if active_events == 0:
-#                     update_sport(sport['id'], {"active": False})
+    check_sport_status(event_data['id'])
 
 
 def update_selection(selection_id, selection_data):
@@ -185,26 +174,27 @@ def update_selection(selection_id, selection_data):
         conn.commit()
 
     # Check and update event and sport status
-    event = get_event(selection_data['event_id'])
-    if event:
-        sport_id = event['sport_id']  # Extract sport_id from event
-        with db.engine.connect() as conn:
-            active_selections = conn.execute(
-                text('SELECT COUNT(*) FROM selections WHERE event_id = :event_id AND active = 1'),
-                {"event_id": event['id']}
-            ).scalar()
-        if active_selections == 0:
-            update_event(event['id'], {"active": False})
-            sport = get_sport(sport_id)  # Use extracted sport_id
-            if sport:
-                print(sport)
-                with db.engine.connect() as conn:
-                    active_events = conn.execute(
-                        text('SELECT COUNT(*) FROM events WHERE sport_id = :sport_id AND active = 1'),
-                        {"sport_id": sport['id']}
-                    ).scalar()
-                if active_events == 0:
-                    update_sport(sport['id'], {"active": False})
+    # event = get_event(selection_data['event_id'])
+    check_event_status(selection_data['event_id'])
+    # if event:
+    #     sport_id = event['sport_id']  # Extract sport_id from event
+    #     with db.engine.connect() as conn:
+    #         active_selections = conn.execute(
+    #             text('SELECT COUNT(*) FROM selections WHERE event_id = :event_id AND active = 1'),
+    #             {"event_id": event['id']}
+    #         ).scalar()
+    #     if active_selections == 0:
+    #         update_event(event['id'], {"active": False})
+    #         sport = get_sport(sport_id)  # Use extracted sport_id
+    #         if sport:
+    #             print(sport)
+    #             with db.engine.connect() as conn:
+    #                 active_events = conn.execute(
+    #                     text('SELECT COUNT(*) FROM events WHERE sport_id = :sport_id AND active = 1'),
+    #                     {"sport_id": sport['id']}
+    #                 ).scalar()
+    #             if active_events == 0:
+    #                 update_sport(sport['id'], {"active": False})
 
 
 def check_event_status(event_id):

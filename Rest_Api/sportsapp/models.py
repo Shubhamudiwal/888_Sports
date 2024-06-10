@@ -1,5 +1,5 @@
-from app.database import db
-# from database import db
+from sportsapp.database import db
+
 
 class Sport(db.Model):
     __tablename__ = 'sports'
@@ -7,6 +7,7 @@ class Sport(db.Model):
     name = db.Column(db.String, nullable=False)
     slug = db.Column(db.String, nullable=False, unique=True)
     active = db.Column(db.Boolean, default=True)
+
 
 class Event(db.Model):
     __tablename__ = 'events'
@@ -19,6 +20,7 @@ class Event(db.Model):
     status = db.Column(db.String, nullable=False)
     scheduled_start = db.Column(db.DateTime, nullable=False)
     actual_start = db.Column(db.DateTime)
+
 
 class Selection(db.Model):
     __tablename__ = 'selections'

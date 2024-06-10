@@ -1,15 +1,18 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import Optional, List
+
 
 class SportCreate(BaseModel):
     name: str
     slug: str
     active: bool
 
+
 class SportUpdate(BaseModel):
     name: Optional[str]
     slug: Optional[str]
     active: Optional[bool]
+
 
 class EventCreate(BaseModel):
     name: str
@@ -21,6 +24,7 @@ class EventCreate(BaseModel):
     scheduled_start: str
     actual_start: Optional[str] = None
 
+
 class EventUpdate(BaseModel):
     name: Optional[str]
     slug: Optional[str]
@@ -31,12 +35,14 @@ class EventUpdate(BaseModel):
     scheduled_start: Optional[str]
     actual_start: Optional[str] = None
 
+
 class SelectionCreate(BaseModel):
     name: str
     event_id: int
     price: float
     active: bool
     outcome: str
+
 
 class SelectionUpdate(BaseModel):
     name: Optional[str]
