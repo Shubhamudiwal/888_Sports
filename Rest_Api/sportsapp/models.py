@@ -2,6 +2,16 @@ from sportsapp.database import db
 
 
 class Sport(db.Model):
+    """
+        Sport model representing a sport entity in the database.
+
+        Attributes:
+            id (int): The primary key of the sport.
+            name (str): The name of the sport.
+            slug (str): A unique slug for the sport.
+            active (bool): Indicates whether the sport is active.
+            events (list[Event]): A list of events associated with the sport.
+        """
     __tablename__ = 'sports'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
@@ -10,6 +20,12 @@ class Sport(db.Model):
     events = db.relationship('Event', backref='sport', lazy=True)
 
     def to_dict(self):
+        """
+                Convert the Sport instance to a dictionary.
+
+                Returns:
+                    dict: A dictionary representation of the Sport instance.
+        """
         return {
             'id': self.id,
             'name': self.name,
@@ -20,6 +36,21 @@ class Sport(db.Model):
 
 
 class Event(db.Model):
+    """
+        Event model representing an event entity in the database.
+
+        Attributes:
+            id (int): The primary key of the event.
+            name (str): The name of the event.
+            slug (str): A unique slug for the event.
+            active (bool): Indicates whether the event is active.
+            type (str): The type of the event.
+            sport_id (int): The ID of the sport associated with the event.
+            status (str): The status of the event.
+            scheduled_start (datetime): The scheduled start time of the event.
+            actual_start (datetime): The actual start time of the event.
+            selections (list[Selection]): A list of selections associated with the event.
+    """
     __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
@@ -33,6 +64,12 @@ class Event(db.Model):
     selections = db.relationship('Selection', backref='event', lazy=True)
 
     def to_dict(self):
+        """
+                Convert the Event instance to a dictionary.
+
+                Returns:
+                    dict: A dictionary representation of the Event instance.
+        """
         return {
             'id': self.id,
             'name': self.name,
@@ -48,6 +85,17 @@ class Event(db.Model):
 
 
 class Selection(db.Model):
+    """
+        Selection model representing a selection entity in the database.
+
+        Attributes:
+            id (int): The primary key of the selection.
+            name (str): The name of the selection.
+            event_id (int): The ID of the event associated with the selection.
+            price (Decimal): The price of the selection.
+            active (bool): Indicates whether the selection is active.
+            outcome (str): The outcome status of the selection.
+    """
     __tablename__ = 'selections'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
@@ -57,6 +105,12 @@ class Selection(db.Model):
     outcome = db.Column(db.String, nullable=False)
 
     def to_dict(self):
+        """
+                Convert the Selection instance to a dictionary.
+
+                Returns:
+                    dict: A dictionary representation of the Selection instance.
+        """
         return {
             'id': self.id,
             'name': self.name,

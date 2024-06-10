@@ -5,9 +5,16 @@ from sportsapp.models import Sport, Event, Selection
 from datetime import datetime
 import json
 
+
 class TestAPI(unittest.TestCase):
+    """
+        Unit test case class for testing the Sports Event Management API.
+    """
 
     def setUp(self):
+        """
+                Set up the test client and create initial data for testing.
+        """
         self.app = create_app().test_client()
         self.app.testing = True
 
@@ -39,12 +46,17 @@ class TestAPI(unittest.TestCase):
             db.session.commit()
 
     def tearDown(self):
-        # Drop the database
+        """
+                Tear down the test environment by dropping all tables.
+        """
         with self.app.application.app_context():
             db.session.remove()
             db.drop_all()
 
     def test_create_sport(self):
+        """
+                Test case for creating a new sport.
+        """
         response = self.app.post('/sports/', data=json.dumps({
             "name": "Rugby",
             "slug": "rugby",
@@ -55,6 +67,9 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(response.json["name"], "Rugby")
 
     def test_create_event(self):
+        """
+                Test case for creating a new event.
+        """
         response = self.app.post('/events/', data=json.dumps({
             "name": "Internazionale vs. Shakhtar Donetsk",
             "slug": "internazionale-vs-shakhtar-donetsk",
@@ -69,6 +84,9 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(response.json["name"], "Internazionale vs. Shakhtar Donetsk")
 
     def test_create_selections(self):
+        """
+                Test case for creating selections for an event.
+        """
         # First, create an event for the selections to link to
         event_response = self.app.post('/events/', data=json.dumps({
             "name": "Internazionale vs. Shakhtar Donetsk",
@@ -99,6 +117,9 @@ class TestAPI(unittest.TestCase):
             self.assertEqual(response.json["name"], selection["name"])
 
     def test_search_sports(self):
+        """
+                Test case for searching sports with filters.
+        """
         response = self.app.post('/sports/search', data=json.dumps({
             "name_regex": "Cricket",
             "min_active_events": 1,
@@ -110,6 +131,9 @@ class TestAPI(unittest.TestCase):
         self.assertGreaterEqual(len(response.json), 1)
 
     def test_search_events(self):
+        """
+                Test case for searching events with filters.
+        """
         response = self.app.post('/events/search', data=json.dumps({
             "name_regex": "Cricket",
             "min_active_events": 1,
@@ -121,6 +145,9 @@ class TestAPI(unittest.TestCase):
         self.assertGreaterEqual(len(response.json), 1)
 
     def test_search_selections(self):
+        """
+                Test case for searching selections with filters.
+        """
         response = self.app.post('/selections/search', data=json.dumps({
             "name_regex": "X",
             "min_active_events": 1,
@@ -132,6 +159,9 @@ class TestAPI(unittest.TestCase):
         self.assertGreaterEqual(len(response.json), 1)
 
     def test_update_sport(self):
+        """
+                Test case for updating a sport.
+        """
         response = self.app.put(f'/sports/{self.sport_id}', data=json.dumps({
             "name": "Updated Cricket",
             "slug": "updated-cricket",
@@ -143,6 +173,9 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(response.json["active"], False)
 
     def test_update_event(self):
+        """
+                Test case for updating an event.
+        """
         event_response = self.app.post('/events/', data=json.dumps({
             "name": "Cricket Match ",
             "slug": "cricket-match-1",
@@ -168,6 +201,9 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(response.json["status"], "Started")
 
     def test_update_selection(self):
+        """
+                Test case for updating a selection.
+        """
         # First, create an event
         event_response = self.app.post('/events/', data=json.dumps({
             "name": "Internazionale vs. Shakhtar Donetsk",
@@ -217,6 +253,9 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(event_response.json["active"], 0)
 
     def test_get_sports(self):
+        """
+                Test case for retrieving all sports.
+        """
         response = self.app.get('/sports')
         print("Get Sports Response:", response.json)  # Log the response for debugging
         self.assertEqual(response.status_code, 200)
@@ -224,6 +263,9 @@ class TestAPI(unittest.TestCase):
         self.assertIn('events', response.json[0])
 
     def test_get_events(self):
+        """
+                Test case for retrieving all events.
+        """
         response = self.app.get('/events')
         print("Get Events Response:", response.json)  # Log the response for debugging
         self.assertEqual(response.status_code, 200)
@@ -231,6 +273,9 @@ class TestAPI(unittest.TestCase):
         self.assertIn('selections', response.json[0])
 
     def test_get_selections(self):
+        """
+                Test case for retrieving all selections.
+        """
         response = self.app.get('/selections')
         print("Get Selections Response:", response.json)  # Log the response for debugging
         self.assertEqual(response.status_code, 200)
