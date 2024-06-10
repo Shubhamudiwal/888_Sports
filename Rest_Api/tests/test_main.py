@@ -217,6 +217,26 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(event_response.status_code, 200, msg=f"Event retrieval failed: {event_response.json}")
         self.assertEqual(event_response.json["active"], 0)
 
+    def test_get_sports(self):
+        response = self.app.get('/sports')
+        print("Get Sports Response:", response.json)  # Log the response for debugging
+        self.assertEqual(response.status_code, 200)
+        self.assertGreaterEqual(len(response.json), 1)
+        self.assertIn('events', response.json[0])
+
+    def test_get_events(self):
+        response = self.app.get('/events')
+        print("Get Events Response:", response.json)  # Log the response for debugging
+        self.assertEqual(response.status_code, 200)
+        self.assertGreaterEqual(len(response.json), 1)
+        self.assertIn('selections', response.json[0])
+
+    def test_get_selections(self):
+        response = self.app.get('/selections')
+        print("Get Selections Response:", response.json)  # Log the response for debugging
+        self.assertEqual(response.status_code, 200)
+        self.assertGreaterEqual(len(response.json), 1)
+
 
 if __name__ == '__main__':
     unittest.main()

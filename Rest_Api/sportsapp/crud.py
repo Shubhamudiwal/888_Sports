@@ -1,6 +1,6 @@
 from sqlalchemy import text
 from sportsapp.database import db
-
+from sportsapp.models import Sport, Event, Selection
 
 def create_sport(sport):
     with db.engine.connect() as conn:
@@ -215,3 +215,13 @@ def check_sport_status(sport_id):
                                      {"sport_id": sport_id}).scalar()
     if active_events == 0:
         update_sport(sport_id, {"active": False})
+
+
+def get_all_sports():
+    return Sport.query.all()
+
+def get_all_events():
+    return Event.query.all()
+
+def get_all_selections():
+    return Selection.query.all()

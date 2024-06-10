@@ -164,3 +164,21 @@ def search_selections():
         return jsonify([dict(row) for row in selections]), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+
+
+@main.route('/sports', methods=['GET'])
+def get_sports():
+    sports = crud.get_all_sports()
+    return jsonify([sport.to_dict() for sport in sports])
+
+
+@main.route('/events', methods=['GET'])
+def get_events():
+    events = crud.get_all_events()
+    return jsonify([event.to_dict() for event in events])
+
+
+@main.route('/selections', methods=['GET'])
+def get_selections():
+    selections = crud.get_all_selections()
+    return jsonify([selection.to_dict() for selection in selections])

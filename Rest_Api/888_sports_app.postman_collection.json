@@ -46,6 +46,46 @@
 			"response": []
 		},
 		{
+			"name": "http://127.0.0.1:8000/sports",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "content_type",
+						"value": "[{\"key\":\"content_type\",\"value\":\"application/json\",\"description\":null,\"type\":\"text\",\"enabled\":true,\"equals\":true}]",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/sports",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"sports"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "http://127.0.0.1:8000/events/",
 			"request": {
 				"method": "POST",
@@ -58,7 +98,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n            \"name\": \"Germany vs France\",\r\n            \"slug\": \"germany vs france\",\r\n            \"active\": true,\r\n            \"type\": \"preplay\",\r\n            \"sport_id\": 2,\r\n            \"status\": \"Pending\",\r\n            \"scheduled_start\": \"2023-06-10T20:00:00\"\r\n        }",
+					"raw": "{\r\n            \"name\": \"Germany vs France\",\r\n            \"slug\": \"germany vs france\",\r\n            \"active\": true,\r\n            \"type\": \"preplay\",\r\n            \"sport_id\": 1,\r\n            \"status\": \"Pending\",\r\n            \"scheduled_start\": \"2023-06-10T20:00:00\"\r\n        }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -78,6 +118,46 @@
 					"path": [
 						"events",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/events",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "content_type",
+						"value": "[{\"key\":\"content_type\",\"value\":\"application/json\",\"description\":null,\"type\":\"text\",\"enabled\":true,\"equals\":true}]",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/events",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"events"
 					]
 				}
 			},
@@ -116,6 +196,46 @@
 					"path": [
 						"selections",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/selections",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "content_type",
+						"value": "[{\"key\":\"content_type\",\"value\":\"application/json\",\"description\":null,\"type\":\"text\",\"enabled\":true,\"equals\":true}]",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/selections",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"selections"
 					]
 				}
 			},
