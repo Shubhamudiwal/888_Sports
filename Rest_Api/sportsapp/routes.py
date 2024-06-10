@@ -5,6 +5,7 @@ from sportsapp.database import db
 
 main = Blueprint('main', __name__)
 
+
 @main.route('/sports/', methods=['POST'])
 def create_sport():
     data = request.get_json()
@@ -163,4 +164,3 @@ def search_selections():
         return jsonify([dict(row) for row in selections]), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
-
