@@ -1,0 +1,353 @@
+{
+	"info": {
+		"_postman_id": "27a0c5e3-4b38-4786-9036-05be6a67c34b",
+		"name": "888_sports_app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20864910",
+		"_collection_link": "https://bold-water-847089.postman.co/workspace/Shubham-~d8d52a15-092c-4f14-bf1e-74fadf294c29/collection/20864910-27a0c5e3-4b38-4786-9036-05be6a67c34b?action=share&source=collection_link&creator=20864910"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:8000/sports/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content_type",
+						"value": "[{\"key\":\"content_type\",\"value\":\"application/json\",\"description\":null,\"type\":\"text\",\"enabled\":true,\"equals\":true}]",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"name\": \"Football\",\r\n            \"slug\": \"football\",\r\n            \"active\": true\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/sports/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"sports",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/events/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content_type",
+						"value": "[{\"key\":\"content_type\",\"value\":\"application/json\",\"description\":null,\"type\":\"text\",\"enabled\":true,\"equals\":true}]",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"name\": \"Germany vs France\",\r\n            \"slug\": \"germany vs france\",\r\n            \"active\": true,\r\n            \"type\": \"preplay\",\r\n            \"sport_id\": 2,\r\n            \"status\": \"Pending\",\r\n            \"scheduled_start\": \"2023-06-10T20:00:00\"\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/events/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"events",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/selections/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content_type",
+						"value": "[{\"key\":\"content_type\",\"value\":\"application/json\",\"description\":null,\"type\":\"text\",\"enabled\":true,\"equals\":true}]",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"3\",\r\n    \"event_id\": 1,\r\n    \"price\": 1.63,\r\n    \"active\": true,\r\n    \"outcome\": \"Unsettled\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/selections/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"selections",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/sports/search",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content_type",
+						"value": "[{\"key\":\"content_type\",\"value\":\"application/json\",\"description\":null,\"type\":\"text\",\"enabled\":true,\"equals\":true}]",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"name_regex\": null,\r\n            \"min_active_events\": null,\r\n            \"min_active_selections\": null,\r\n            \"scheduled_start\": [\"2023-06-01T00:00:00\", \"2023-06-30T23:59:59\"]\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/sports/search",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"sports",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/events/search",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content_type",
+						"value": "[{\"key\":\"content_type\",\"value\":\"application/json\",\"description\":null,\"type\":\"text\",\"enabled\":true,\"equals\":true}]",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"name_regex\": null,\r\n            \"min_active_events\": null,\r\n            \"min_active_selections\": null,\r\n            \"scheduled_start\": [\"2023-06-01T00:00:00\", \"2023-06-30T23:59:59\"]\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/events/search",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"events",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/selections/search",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content_type",
+						"value": "[{\"key\":\"content_type\",\"value\":\"application/json\",\"description\":null,\"type\":\"text\",\"enabled\":true,\"equals\":true}]",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"name_regex\": \"X\",\r\n            \"min_active_events\": 1,\r\n            \"min_active_selections\": 1,\r\n            \"scheduled_start\": [\"2023-06-01T00:00:00\", \"2023-06-30T23:59:59\"]\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/selections/search",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"selections",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/sports/1",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "content_type",
+						"value": "[{\"key\":\"content_type\",\"value\":\"application/json\",\"description\":null,\"type\":\"text\",\"enabled\":true,\"equals\":true}]",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"name\": \"Cricket\",\r\n            \"slug\": \"Cricket\",\r\n            \"active\": true\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/sports/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"sports",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/events/1",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "content_type",
+						"value": "[{\"key\":\"content_type\",\"value\":\"application/json\",\"description\":null,\"type\":\"text\",\"enabled\":true,\"equals\":true}]",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"name\": \"Pakistan Vs India\",\r\n            \"slug\": \"pakistan Vs india\",\r\n            \"active\": true,\r\n            \"type\": \"preplay\",\r\n            \"sport_id\": 1,\r\n            \"status\": \"Started\",\r\n            \"scheduled_start\": \"2023-06-10T20:00:00\"\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/events/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"events",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/selections/1",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "content_type",
+						"value": "[{\"key\":\"content_type\",\"value\":\"application/json\",\"description\":null,\"type\":\"text\",\"enabled\":true,\"equals\":true}]",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"name\": \"3\",\r\n            \"active\": false,\r\n            \"event_id\": 1,\r\n            \"price\": 1.63,\r\n            \"outcome\": \"Unsettled\"\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/selections/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"selections",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
